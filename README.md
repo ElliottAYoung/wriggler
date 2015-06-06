@@ -2,7 +2,7 @@
 
 Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/wriggler`. To experiment with that code, run `bin/console` for an interactive prompt.
 
-TODO: Delete this and the text above, and describe your gem
+Wriggler was created to serve and the crawler for a search engine, moving its way through HTML files and grabbing data based on pre determined tags then making/storing the data in a number of specifically created CSV files. 
 
 ## Installation
 

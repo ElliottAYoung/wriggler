@@ -9,9 +9,9 @@ Gem::Specification.new do |spec|
   spec.authors       = ["Elliott Young"]
   spec.email         = ["elliott.a.young@gmail.com"]
 
-  spec.summary       = %q{TODO: Write a short summary, because Rubygems requires one.}
-  spec.description   = %q{TODO: Write a longer description or delete this line.}
-  spec.homepage      = "TODO: Put your gem's website or public repo URL here."
+  spec.summary       = "A Gem designed to crawl through a local directory of HTML/XML files and pull out content based on pre-specified tag"
+  spec.description   = "A Gem designed to crawl through a local directory of HTML/XML files and pull out content based on pre-specified tag, which will then be saved to a CSV file and exported. Originally designed to feed an indexer."
+  spec.homepage      = "https://github.com/ElliottAYoung/wriggler"
   spec.license       = "MIT"
 
   # Prevent pushing this gem to RubyGems.org by setting 'allowed_push_host', or
@@ -30,4 +30,5 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "bundler", "~> 1.10"
   spec.add_development_dependency "rake", "~> 10.0"
   spec.add_development_dependency "rspec"
+  spec.add_development_dependency "nokogiri"
 end

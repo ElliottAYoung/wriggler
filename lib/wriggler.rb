@@ -2,7 +2,9 @@ require "wriggler/version"
 require "nokogiri"
 
 module Wriggler
-	def crawl(tags=[], directory="", subdirectories=true)
+	attr_reader :content, :directory
+
+  def crawl(tags=[], directory="", subdirectories=true)
 		@content = Hash[tags.map {|k| [k, []]}]		#Hash with content
 		@subdirectories = subdirectories					#Default true for the existence of subdirs
 		@directory = directory 										#Directory to grab files from
@@ -28,19 +30,19 @@ module Wriggler
   	#Opens the next file on the list, depending on the extension passes it to HTML or XML
   	f = File.open(file)
 
-  	if is_html?(file)
+  	if is_HTML?(file)
   		set_HTML(f)
-  	elsif is_xml?(file)
+  	elsif is_XML?(file)
   		set_XML(f)
   	end
   end
 
-  def is_html?(file)
+  def is_HTML?(file)
   	#Determines, using a regex check, if it is an HTML file
   	file =~ /.html/
   end
 
-  def is_xml?(file)
+  def is_XML?(file)
   	#Determines, using a regex check, if it is an XML file
   	file =~ /.xml/
   end

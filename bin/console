@@ -11,5 +11,4 @@ require "wriggler"
 # Pry.start
 
 require "irb"
-require "nokogiri"
 IRB.start

@@ -1,16 +1,13 @@
-require "wriggler/version"
 require "nokogiri"
 
-module Wriggler
-	attr_reader :content, :directory
-
-  def crawl(tags=[], directory="", subdirectories=true)
+class Wriggler
+	def initialize(tags=[], directory="", subdirectories=true)
 		@content = Hash[tags.map {|k| [k, []]}]		#Hash with content
 		@subdirectories = subdirectories					#Default true for the existence of subdirs
 		@directory = directory 										#Directory to grab files from
 
 		navigate_directory
-		Writer.write_to_csv(@content)
+		# Writer.write_to_csv(@content)
 	end
 
   private
@@ -23,26 +20,43 @@ module Wriggler
 
   def gather_files
   	#Gathers all of the HTML or XML files from this and all subdirectories
-
+    open_next_file("test1.xml")
+    puts "=============="
+    puts "1:"
+    p @content
+    puts "=============="
+    puts ""
+    open_next_file("test2.xml")
+    puts "=============="
+    puts "2:"
+    p @content
+    puts "=============="
+    puts ""
+    open_next_file("test3.xml")
+    puts "=============="
+    puts "3:"
+    p @content
+    puts "=============="
+    puts ""
   end
 
   def open_next_file(file)
   	#Opens the next file on the list, depending on the extension passes it to HTML or XML
   	f = File.open(file)
 
-  	if is_HTML?(file)
+  	if is_html?(file)
   		set_HTML(f)
-  	elsif is_XML?(file)
+  	elsif is_xml?(file)
   		set_XML(f)
   	end
   end
 
-  def is_HTML?(file)
+  def is_html?(file)
   	#Determines, using a regex check, if it is an HTML file
   	file =~ /.html/
   end
 
-  def is_XML?(file)
+  def is_xml?(file)
   	#Determines, using a regex check, if it is an XML file
   	file =~ /.xml/
   end
@@ -74,7 +88,4 @@ module Wriggler
   end
 end
 
-module Writer
-	def write_to_csv(content)
-	end
-end
+test = Wriggler.new(["character", "content", "name", "title"], "/Users/47900/Desktop/Ruby/wriggler/dirtest", false)

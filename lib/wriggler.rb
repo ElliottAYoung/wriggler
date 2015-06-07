@@ -1,12 +1,14 @@
 require "wriggler/version"
+require "nokogiri"
 
 module Wriggler
-	def crawl(tags=[], directory, subdirectories = true)
+	def crawl(tags=[], directory="", subdirectories=true)
 		@content = Hash[tags.map {|k| [k, []]}]		#Hash with content
 		@subdirectories = subdirectories					#Default true for the existence of subdirs
 		@directory = directory 										#Directory to grab files from
 
 		navigate_directory
+		Writer.write_to_csv(@content)
 	end
 
   private
@@ -44,18 +46,19 @@ module Wriggler
   end
 
   def set_HTML(file)
-  	#Crawl any HTML files looking for tags in @content
+  	#Set the HTML file into Nokogiri for crawling
   	doc = Nokogiri::HTML(file)
-  	crawl(doc)
+  	crawl_file(doc)
   end
 
   def set_XML(file)
-  	#Crawl any XML files looking for tags in @content
+  	#Set the XML file into Nokogiri for crawling
   	doc = Nokogiri::XML(file)
-  	crawl(doc)
+  	crawl_file(doc)
   end
 
-  def crawl(doc)
+  def crawl_file(doc)
+  	#Crawl the Nokogiri Object for the file
   	@content.each_key do |key|
   		if !doc.xpath("//#{key}").empty?				#Returns an empty array if tag is not present
   			doc.xpath("//#{key}").map{ |tag| @content.fetch(key) << sanitize(tag.text) }
@@ -64,7 +67,8 @@ module Wriggler
   end
 
   def sanitize(text)
-  	text.gsub(/"/, "'")					#Removes any escaped quotes, replaces them
+  	#Removes any escaped quotes, replaces them
+  	text.gsub(/"/, "'")					
   end
 end
 

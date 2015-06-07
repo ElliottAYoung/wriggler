@@ -11,14 +11,6 @@ module Wriggler
 
   private
 
-  def crawl_HTML(file)
-  	#Crawl any HTML files looking for tags in @content
-  end
-
-  def crawl_XML(file)
-  	#Crawl any XML files looking for tags in @content
-  end
-
   def navigate_directory
  		#Set the cwd to the given dir send to gather all nested files from there
  		Dir.chdir(@directory) 
@@ -35,9 +27,9 @@ module Wriggler
   	f = File.open(file)
 
   	if is_html?(file)
-  		crawl_HTML(f)
+  		set_HTML(f)
   	elsif is_xml?(file)
-  		crawl_XML(f)
+  		set_XML(f)
   	end
   end
 
@@ -50,7 +42,33 @@ module Wriggler
   	#Determines, using a regex check, if it is an XML file
   	file =~ /.xml/
   end
+
+  def set_HTML(file)
+  	#Crawl any HTML files looking for tags in @content
+  	doc = Nokogiri::HTML(file)
+  	crawl(doc)
+  end
+
+  def set_XML(file)
+  	#Crawl any XML files looking for tags in @content
+  	doc = Nokogiri::XML(file)
+  	crawl(doc)
+  end
+
+  def crawl(doc)
+  	@content.each_key do |key|
+  		if !doc.xpath("//#{key}").empty?				#Returns an empty array if tag is not present
+  			doc.xpath("//#{key}").map{ |tag| @content.fetch(key) << sanitize(tag.text) }
+  		end
+  	end
+  end
+
+  def sanitize(text)
+  	text.gsub(/"/, "'")					#Removes any escaped quotes, replaces them
+  end
 end
 
 module Writer
+	def write_to_csv(content)
+	end
 end

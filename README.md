@@ -29,14 +29,18 @@ Wriggler.crawl([array, of, HTML/XML, tags], directory)
 Note: The directory in this should be the top level directory that your HTML/XML files are in. Wriggler will account for any nested directories within this directory that also contain HTML/XML files. At the end you will have a data structure that resembles this:
 
 ```ruby
+===============
+Files Found: 2
+===============
 content = {
-	tag1: ["First Found Tag", "Second Found Tag", etc.],
-	tag2: []
-	tag3: ["First Found Tag"]
+	tag1: ["Content", "Found", "in", "the", "First", "Opened", "File"], ["Content", "Found", "in", "the", "Second", "Opened", "File"]
+	tag2: [], []
+	tag3: ["Content", "Found", "in", "the", "First", "Opened", "File"], []
+	tag4: [], ["Content", "Found", "in", "the", "Second", "Opened", "File"]
 }
 ```
 
-Where tag2 had no found content for its tags and tag3 had only one
+Where tag2 has no content found between both files, tag3 only found content in the first of the two files, tag4 only found content in the second of two files, and tag1 found content in both.
 
 ## Contributing
 

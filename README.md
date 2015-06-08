@@ -1,6 +1,6 @@
 # Wriggler
 
-Wriggler was created to serve and the crawler for a search engine, moving its way through HTML files and grabbing data based on pre determined tags then making/storing the data in a number of specifically created CSV files. 
+Wriggler was created to serve and the crawler for a search engine, moving its way through HTML and/or XML files and grabbing data based on pre determined tags then making/storing the data in a specifically created CSV file. Wriggler acts similarly t0 a spider, but was designed to be used with any number of local files, not as an actual web scraper.
 
 ## Installation
 

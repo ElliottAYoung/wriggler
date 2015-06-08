@@ -10,7 +10,7 @@ Gem::Specification.new do |spec|
   spec.email         = ["elliott.a.young@gmail.com"]
 
   spec.summary       = "A Gem designed to crawl through a local directory of HTML/XML files and pull out content based on pre-specified tag"
-  spec.description   = "A Gem designed to crawl through a local directory of HTML/XML files and pull out content based on pre-specified tag, which will then be saved to a CSV file and exported. Originally designed to feed an indexer."
+  spec.description   = "A Gem designed to crawl through a local directory of HTML/XML files and pull out content based on pre-specified tag, which will be exported as a manipulatable object"
   spec.homepage      = "https://github.com/ElliottAYoung/wriggler"
   spec.license       = "MIT"
 
@@ -31,4 +31,5 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "rake", "~> 10.0"
   spec.add_development_dependency "rspec"
   spec.add_development_dependency "nokogiri"
+  spec.add_development_dependency "awesome_print"
 end

@@ -104,6 +104,6 @@ module Writer
         csv << content.fetch(key)
       end
     end
-    File.write('the_file.csv', s)
+    File.write('tag_content.csv', s)
 	end
 end

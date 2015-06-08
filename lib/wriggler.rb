@@ -25,7 +25,7 @@ module Wriggler
   	#Gathers all of the HTML or XML files from this and all subdirectories into an array
     file_array = []
     Find.find(@directory) do |file|
-      file_array << f if f.match(/\.xml\Z/) || f.match(/\.html\Z/)
+      file_array << file if file.match(/\.xml\Z/) || file.match(/\.html\Z/)
     end
     file_array
   end

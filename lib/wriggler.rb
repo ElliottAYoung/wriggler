@@ -13,8 +13,6 @@ module Wriggler
     @content
   end
 
-  private
-
   def self.navigate_directory
  		#Set the cwd to the given dir send to gather all nested files from there
  		Dir.chdir(@directory) 

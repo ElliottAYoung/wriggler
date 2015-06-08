@@ -76,9 +76,11 @@ class Wriggler
   def crawl_file(doc)
   	#Crawl the Nokogiri Object for the file
   	@content.each_key do |key|
+      arr = []
   		if !doc.xpath("//#{key}").empty?				#Returns an empty array if tag is not present
-  			doc.xpath("//#{key}").map{ |tag| @content.fetch(key) << sanitize(tag.text) }
+  			doc.xpath("//#{key}").map{ |tag| arr << sanitize(tag.text) }
   		end
+      @content.fetch(key) << arr
   	end
   end
 

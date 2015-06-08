@@ -102,14 +102,25 @@ describe Wriggler do
   	it 'should remove any " from a String' do
   	end
 
-  	it 'should not modify a String that has no "s' do
+    it 'should remove any \n from a String' do
+    end
+
+  	it 'should not modify a String that has no "s or \ns' do
   	end
   end
 end
 
 describe Writer do
-	context '#write_to_csv' do
+	context '#write' do
 		xit 'should create a new CSV file named "tag_content.csv"' do
 		end
 	end
+
+  context '#clean_array' do
+    xit 'should remove any empty arrays [ ] from @content' do
+    end
+
+    xit 'should not modify an array if it is not empty' do
+    end
+  end
 end

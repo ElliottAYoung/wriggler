@@ -92,8 +92,10 @@ module Wriggler
   end
 end
 
+require 'CSV'
+
 module Writer
-	def write(content)
+	def self.write(content)
     @content = content
 	end
 end

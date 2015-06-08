@@ -38,6 +38,12 @@ class Wriggler
     p @content
     puts "=============="
     puts ""
+    open_next_file("test4.html")
+    puts "=============="
+    puts "4:"
+    p @content
+    puts "=============="
+    puts ""
   end
 
   def open_next_file(file)
@@ -86,8 +92,8 @@ class Wriggler
 
   def sanitize(text)
   	#Removes any escaped quotes, replaces them
-  	text.gsub(/"/, "'")					
+  	text.gsub(/"/, "'").lstrip.chomp				
   end
 end
 
-test = Wriggler.new(["character", "content", "name", "title"], "/Users/47900/Desktop/Ruby/wriggler/dirtest", false)
+test = Wriggler.new(["character", "content", "name", "title", "button"], "/Users/47900/Desktop/Ruby/wriggler/dirtest", false)

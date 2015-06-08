@@ -92,8 +92,18 @@ module Wriggler
   end
 end
 
+require 'CSV'
+
 module Writer
-	def write(content)
-    @content = content
+	def self.write(content)
+    #Write to a CSV file now
+    column_names = content.keys
+    s = CSV.generate do |csv|
+      csv << column_names
+      content.keys.each do |key|
+        csv << content.fetch(key)
+      end
+    end
+    File.write('tag_content.csv', s)
 	end
 end

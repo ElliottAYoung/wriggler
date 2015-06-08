@@ -10,7 +10,7 @@ module Wriggler
 		@directory = directory 										#Directory to grab files from
 
 		navigate_directory
-		Writer.write_to_csv(@content)
+		Writer.write(@content)
 	end
 
   private
@@ -62,19 +62,28 @@ module Wriggler
   def crawl_file(doc)
   	#Crawl the Nokogiri Object for the file
   	@content.each_key do |key|
+      arr = []
   		if !doc.xpath("//#{key}").empty?				#Returns an empty array if tag is not present
-  			doc.xpath("//#{key}").map{ |tag| @content.fetch(key) << sanitize(tag.text) }
+  			doc.xpath("//#{key}").map{ |tag| arr << sanitize(tag.text) }
   		end
+      @content.fetch(key) << arr
   	end
   end
 
   def sanitize(text)
   	#Removes any escaped quotes, replaces them
-  	text.gsub(/"/, "'")					
+  	text.gsub(/"/, "'").lstrip.chomp					
   end
 end
 
 module Writer
-	def write_to_csv(content)
+	def write(content)
+    @content = content
 	end
+
+  private
+
+  def clean_array
+    
+  end
 end

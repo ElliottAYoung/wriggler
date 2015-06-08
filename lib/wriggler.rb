@@ -31,7 +31,8 @@ module Wriggler
   end
 
   def self.open_files
-    until open_files.empty? do |file|
+    #Opens all the files in the file_array
+    file_array.each do |file|
       open_next_file(file)
     end
   end

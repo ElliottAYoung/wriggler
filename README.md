@@ -23,7 +23,7 @@ Or install it yourself as:
 You only need to run one command to use Wriggler, run: 
 
 ```ruby
-Wriggler.crawl([array, of, HTML/XML, tags], directory)
+Wriggler.crawl(["array", "of", "HTML/XML", "tags"], directory)
 ```
 
 Note: The directory in this should be the top level directory that your HTML/XML files are in. Wriggler will account for any nested directories within this directory that also contain HTML/XML files. At the end you will have a data structure that resembles this:

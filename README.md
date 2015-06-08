@@ -1,6 +1,6 @@
 # Wriggler
 
-Wriggler was created to serve and the crawler for a search engine, moving its way through HTML and/or XML files and grabbing data based on pre determined tags then making/storing the data in a specifically created CSV file. Wriggler acts similarly t0 a spider, but was designed to be used with any number of local files, not as an actual web scraper.
+Wriggler was created to serve and the crawler for a search engine, moving its way through HTML and/or XML files and grabbing data based on pre determined tags then exporting it in a manipulatable format. Wriggler acts similarly to a spider, but was designed to be used with any number of local files, not as an actual web scraper.
 
 ## Installation
 
@@ -26,7 +26,17 @@ You only need to run one command to use Wriggler, run:
 Wriggler.crawl([array, of, HTML/XML, tags], directory)
 ```
 
-Note: The directory in this should be the top level directory that your HTML/XML files are in. Wriggler will account for any nested directories within this directory that also contain HTML/XML files and at the end of it running will save a new file named "tag_content.csv" to this directory
+Note: The directory in this should be the top level directory that your HTML/XML files are in. Wriggler will account for any nested directories within this directory that also contain HTML/XML files. At the end you will have a data structure that resembles this:
+
+```ruby
+content = {
+	tag1: ["First Found Tag", "Second Found Tag", etc.],
+	tag2: []
+	tag3: ["First Found Tag"]
+}
+```
+
+Where tag2 had no found content for its tags and tag3 had only one
 
 ## Contributing
 

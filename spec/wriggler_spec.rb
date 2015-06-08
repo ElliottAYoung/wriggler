@@ -117,10 +117,3 @@ describe Wriggler do
     end
   end
 end
-
-describe Writer do
-	context '#write' do
-		xit 'should create a new CSV file named "tag_content.csv"' do
-		end
-	end
-end

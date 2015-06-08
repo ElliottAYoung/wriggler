@@ -10,7 +10,7 @@ module Wriggler
     @directory = directory                    #Current top-level directory
 
     navigate_directory
-    Writer.write(@content)
+    @content
   end
 
   private
@@ -27,6 +27,9 @@ module Wriggler
     Find.find(@directory) do |file|
       file_array << file if file.match(/\.xml\Z/) || file.match(/\.html\Z/)
     end
+    puts "==============="
+    puts "Files Found: #{file_array.length}"
+    puts "==============="
     file_array
   end
 
@@ -71,14 +74,14 @@ module Wriggler
   end
 
   def self.crawl_file(doc)
-  	#Crawl the Nokogiri Object for the file
-  	@content.each_key do |key|
+    #Crawl the Nokogiri Object for the file
+    @content.each_key do |key|
       arr = []
-  		if !doc.xpath("//#{key}").empty?				#Returns an empty array if tag is not present
-  			doc.xpath("//#{key}").map{ |tag| arr << sanitize(tag.text) }
-  		end
-      fill_content(arr, key)
-  	end
+      if !doc.xpath("//#{key}").empty?        #Returns an empty array if tag is not present
+        doc.xpath("//#{key}").map{ |tag| arr << sanitize(tag.text) }
+      end
+      @content.fetch(key) << arr
+    end
   end
 
   def self.sanitize(text)
@@ -86,24 +89,4 @@ module Wriggler
   	text.gsub(/"/, "'").lstrip.chomp				
   end
 
-  def self.fill_content(arr, key)
-    #Doesn't shovel if there is no content found for the specific tag
-    !arr.empty? ? (@content.fetch(key) << arr) : nil
-  end
-end
-
-require 'CSV'
-
-module Writer
-	def self.write(content)
-    #Write to a CSV file now
-    column_names = content.keys
-    s = CSV.generate do |csv|
-      csv << column_names
-      content.keys.each do |key|
-        csv << content.fetch(key)
-      end
-    end
-    File.write('tag_content.csv', s)
-	end
 end

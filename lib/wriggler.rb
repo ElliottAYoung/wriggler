@@ -30,7 +30,7 @@ module Wriggler
     file_array
   end
 
-  def self.open_files
+  def self.open_files(file_array)
     #Opens all the files in the file_array
     file_array.each do |file|
       open_next_file(file)

@@ -96,6 +96,6 @@ require 'CSV'
 
 module Writer
 	def self.write(content)
-    @content = content
+    
 	end
 end

@@ -1,5 +1,6 @@
 require "nokogiri"
 require "find"
+require "CSV"
 
 class Wriggler
  def initialize(tags=[], directory="", subdirectories=true)
@@ -8,8 +9,7 @@ class Wriggler
     @subdirectories = subdirectories          #Default true for the existence of subdirs
 
     navigate_directory
-    p @content
-    # Writer.write(@content)
+    write
   end
 
   private
@@ -87,6 +87,17 @@ class Wriggler
   def fill_content(arr, key)
     #Doesn't shovel if there is no content found for the specific tag
     !arr.empty? ? (@content.fetch(key) << arr) : nil
+  end
+
+  def write
+    # s = CSV.generate do |csv|
+    #   csv << @content.keys
+    #   @content.each do |key|
+    #     csv << key.value
+    #   end
+    # end
+    # File.write('out.csv', s)
+    p @content
   end
 end
 

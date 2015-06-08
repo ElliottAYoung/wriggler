@@ -6,8 +6,8 @@ module Wriggler
 
   def crawl(tags=[], directory="", subdirectories=true)
 		@content = Hash[tags.map {|k| [k, []]}]		#Hash with content
+    @directory = directory                    #Current top-level directory
 		@subdirectories = subdirectories					#Default true for the existence of subdirs
-		@directory = directory 										#Directory to grab files from
 
 		navigate_directory
 		Writer.write(@content)
@@ -18,12 +18,22 @@ module Wriggler
   def navigate_directory
  		#Set the cwd to the given dir send to gather all nested files from there
  		Dir.chdir(@directory) 
- 		gather_files
+ 		open_files(gather_files)
   end
 
   def gather_files
-  	#Gathers all of the HTML or XML files from this and all subdirectories
+  	#Gathers all of the HTML or XML files from this and all subdirectories into an array
+    file_array = []
+    Find.find(@directory) do |file|
+      file_array << f if f.match(/\.xml\Z/) || f.match(/\.html\Z/)
+    end
+    file_array
+  end
 
+  def open_files
+    until open_files.empty? do |file|
+      open_next_file(file)
+    end
   end
 
   def open_next_file(file)
@@ -66,13 +76,18 @@ module Wriggler
   		if !doc.xpath("//#{key}").empty?				#Returns an empty array if tag is not present
   			doc.xpath("//#{key}").map{ |tag| arr << sanitize(tag.text) }
   		end
-      @content.fetch(key) << arr
+      fill_content(arr, key)
   	end
   end
 
   def sanitize(text)
   	#Removes any escaped quotes, replaces them
-  	text.gsub(/"/, "'").lstrip.chomp					
+  	text.gsub(/"/, "'").lstrip.chomp				
+  end
+
+  def fill_content(arr, key)
+    #Doesn't shovel if there is no content found for the specific tag
+    !arr.empty? ? (@content.fetch(key) << arr) : nil
   end
 end
 
@@ -80,10 +95,4 @@ module Writer
 	def write(content)
     @content = content
 	end
-
-  private
-
-  def clean_array
-    
-  end
 end

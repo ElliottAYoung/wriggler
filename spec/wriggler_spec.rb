@@ -108,6 +108,14 @@ describe Wriggler do
   	it 'should not modify a String that has no "s or \ns' do
   	end
   end
+
+  context '#fill_array' do
+    it 'should shovel into @content if it is not empty' do
+    end
+
+    it 'should not modify @content if it is empty' do
+    end
+  end
 end
 
 describe Writer do
@@ -115,12 +123,4 @@ describe Writer do
 		xit 'should create a new CSV file named "tag_content.csv"' do
 		end
 	end
-
-  context '#clean_array' do
-    xit 'should remove any empty arrays [ ] from @content' do
-    end
-
-    xit 'should not modify an array if it is not empty' do
-    end
-  end
 end

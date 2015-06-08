@@ -44,7 +44,7 @@ Where tag2 has no content found between both files, tag3 only found content in t
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/wriggler. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](contributor-covenant.org) code of conduct.
+Bug reports and pull requests are welcome on GitHub at https://github.com/elliottayoung/wriggler. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](contributor-covenant.org) code of conduct.
 
 On top of that, please contribute. I built this for a very specific reason, but I would very much like to see it become something bigger, so if you can assist with that please do!
 

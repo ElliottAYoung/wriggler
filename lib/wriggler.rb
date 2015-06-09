@@ -22,12 +22,9 @@ module Wriggler
   def self.gather_files
   	#Gathers all of the HTML or XML files from this and all subdirectories into an array
     Find.find(@directory) do |file|
-      i = 0
       if is_XML?(file) || is_HTML?(file)
         open_next_file(file)
-        i += 1
       end
-      i % 10000 == 0 ? (puts "Files Processed #{i}") : nil
     end
   end
 

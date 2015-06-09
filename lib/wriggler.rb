@@ -16,25 +16,15 @@ module Wriggler
   def self.navigate_directory
  		#Set the cwd to the given dir send to gather all nested files from there
  		Dir.chdir(@directory) 
- 		open_files(gather_files)
+ 		gather_files
   end
 
   def self.gather_files
   	#Gathers all of the HTML or XML files from this and all subdirectories into an array
-    file_array = []
     Find.find(@directory) do |file|
-      file_array << file if is_XML?(file) || is_HTML?(file)
-    end
-    puts "==============="
-    puts "Files Found: #{file_array.length}"
-    puts "==============="
-    file_array
-  end
-
-  def self.open_files(file_array)
-    #Opens all the files in the file_array
-    file_array.each do |file|
-      open_next_file(file)
+      if is_XML?(file) || is_HTML?(file)
+        open_next_file(file)
+      end
     end
   end
 

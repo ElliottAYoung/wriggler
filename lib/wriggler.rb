@@ -67,6 +67,8 @@ module Wriggler
       arr = []
       if !doc.xpath("//#{key}").empty?        #Returns an empty array if tag is not present
         doc.xpath("//#{key}").map{ |tag| arr << sanitize(tag.text) }
+      else
+        doc.xpath("//#{key}").map{ |_| arr << "" }
       end
       @content.fetch(key) << arr
     end

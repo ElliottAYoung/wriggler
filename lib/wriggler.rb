@@ -85,7 +85,7 @@ module Wriggler
       elsif key == "html"
         arr << "#{doc}"
       else
-        doc.xpath("//#{key}").map{ |_| arr << "" }
+        arr << ""
       end
       @content.fetch(key) << arr
     end
@@ -98,7 +98,7 @@ module Wriggler
       if key == "html"
         arr << "#{doc}"
       elsif contains_key(doc, key)
-        arr << doc.slice(/<#{key}>.*<\/#{key}>/)
+        arr << doc.slice(/<#{key}>(.*)<\/#{key}>/).gsub(/<\/?\w+>/, "")
       else
         arr << ""
       end

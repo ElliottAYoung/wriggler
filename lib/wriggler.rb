@@ -1,6 +1,7 @@
 require "wriggler/version"
 require "nokogiri"
 require "find"
+require "utf8_utils"
 
 module Wriggler
   attr_reader :content, :directory
@@ -17,7 +18,7 @@ module Wriggler
 
   def self.navigate_directory
     #Set the cwd to the given dir send to gather all nested files from there
-    Dir.chdir(@directory) 
+    Dir.chdir(@directory)
     gather_files
   end
 
@@ -38,8 +39,6 @@ module Wriggler
       set_HTML(f)
     elsif is_XML?(file)
       set_XML(f)
-    elsif is_TXT?(file)
-      set_TXT(f)
     end
   end
 
@@ -51,11 +50,6 @@ module Wriggler
   def self.is_XML?(file)
     #Determines, using a regex check, if it is an XML file
     file =~ /.xml/
-  end
-
-  def self.is_TXT?(file)
-    #Determines, using a regex check, if it is a TXT file
-    file =~ /.txt/
   end
 
   def self.set_HTML(file)
@@ -70,49 +64,18 @@ module Wriggler
     crawl_file(doc)
   end
 
-  def self.set_TXT(file)
-    #Set the TXT file into a readable String for Regex checking
-    doc = File.read(file)
-    txt_content(doc)
-  end
-
   def self.crawl_file(doc)
     #Crawl the Nokogiri Object for the file
     @content.each_key do |key|
       arr = []
-      if !doc.xpath("//#{key}").empty? 
-        doc.xpath("//#{key}").map{ |tag| arr << sanitize(tag.text) }
-      elsif key == "html"
+      if !doc.css("#{key}").empty?
+        doc.css("#{key}").map{ |tag| arr << sanitize(tag.text) }
+      elsif key == "html" || key == "xml"
         arr << "#{doc}"
       else
         arr << ""
       end
       @content.fetch(key) << arr
     end
-  end
-
-  def self.txt_content(doc)
-    #Now run through the raw text and regex out what is inbetween the tags
-    @content.each_key do |key|
-      arr = []
-      if key == "html"
-        arr << "#{doc}"
-      elsif contains_key(doc, key)
-        arr << doc.slice(/<#{key}>(.*)<\/#{key}>/).gsub(/<\/?\w+>/, "")
-      else
-        arr << ""
-      end
-      @content.fetch(key) << arr
-    end
-  end
-
-  def self.contains_key(doc, key)
-    #Checks if the String contains the necessary tags
-    doc.include?("<#{key}>") && doc.include?("</#{key}>")
-  end
-
-  def self.sanitize(text)
-    #Removes any escaped quotes, replaces them
-    text.gsub(/"/, "'").lstrip.chomp        
   end
 end
